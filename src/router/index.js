@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Home from '@/components/Home'
 import Admin from '@/components/Admin'
 import Register from '@/components/Register'
@@ -35,6 +36,11 @@ export default new Router({
       path: '/menu',
       name: 'Menu',
       component: Menu
+      // 路由独享守卫
+      // beforeEnter: (to, from, next) => {
+      //   alert('请先登录，才可看菜单')
+      //   next('/login')
+      // }
     },
     {
       path: '/about',
