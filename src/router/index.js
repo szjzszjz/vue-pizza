@@ -25,7 +25,14 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      components: {
+        default: Home,
+        'orderingGuide': OrderingGuide,
+        'history': History,
+        'delivery': Delivery,
+        'contact': Contact
+      }
+
     },
     {
       path: '/admin',
