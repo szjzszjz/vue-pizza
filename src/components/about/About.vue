@@ -1,5 +1,5 @@
 <template>
-  <div class="row mb-5" style="background-color: skyblue;">
+  <div class="row mb-5 mx-auto col-10" style="background-color: skyblue;">
     <dvi class="col-4" style="background-color: greenyellow;">
       <!--      导航-->
       <div class="list-group mb-5">

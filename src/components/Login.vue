@@ -1,5 +1,5 @@
 <template>
-  <div class="row mt-3" style="background-color: yellow;">
+  <div class="row mt-3 col-10 mx-auto">
     <div class="col-md-12 col-lg-12">
       <div class="card">
         <div class="card-body">

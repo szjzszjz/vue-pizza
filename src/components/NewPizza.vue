@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="col-10 mx-auto">
     <h3 class="text-muted mt-5">添加新的pizza</h3>
     <div>
       <div class="from-group row mt-5">

@@ -1,5 +1,5 @@
 <template>
-  <div class="row mt-3">
+  <div class="row mt-3 col-10 mx-auto">
 
     <!--    菜单-->
     <div class="col-sm-12 col-md-8">

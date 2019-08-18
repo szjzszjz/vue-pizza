@@ -1,5 +1,7 @@
 <template>
-  <div>home</div>
+  <div class="col-10 mx-auto">
+    <img class="img" src="../assets/meishi.jpg" alt="">
+  </div>
 </template>
 
 <script>
@@ -8,6 +10,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
+  .img{
+    width:100%
+  }
 
 </style>
