@@ -7,6 +7,10 @@ import axios from 'axios'
 
 Vue.config.productionTip = false
 axios.defaults.baseURL = 'https://vue-pizza-bbaad.firebaseio.com/'
+
+// 配置axios原型
+Vue.prototype.axios = axios
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

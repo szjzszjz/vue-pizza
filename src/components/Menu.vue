@@ -12,17 +12,17 @@
           <th>加入购物车</th>
         </tr>
         </thead>
-        <tbody v-for="(value, key) of menuItems" :key="key">
+        <tbody v-for="(pizza, key) of pizzas" :key="key">
         <tr>
-          <td><strong>{{value.name}}</strong></td>
+          <td><strong>{{pizza.name}}</strong></td>
         </tr>
-        <tr v-for="(option, index) of value.options" :key="index">
-          <td>{{value.description}}</td>
+        <tr v-for="(option, index) of pizza.options" :key="index">
+          <td>{{pizza.description}}</td>
           <td>{{option.size}}rem</td>
           <td>{{option.price}}rmb</td>
           <td>
             <button class="btn btn-sm btn-outline-success"
-                    @click="addShoppingCart(value , option)">+
+                    @click="addShoppingCart(pizza , option)">+
             </button>
           </td>
         </tr>
@@ -61,6 +61,7 @@
 
 <script>
   import Delivery from './about/Delivery'
+  // import axios from 'axios'
 
   export default {
     name: 'Menu',
@@ -103,7 +104,7 @@
         }
         // 改变提交按钮的颜色
         if (this.shoppingCarts.length < 1) {
-            this.isActive = false
+          this.isActive = false
         }
       },
       // 提交购物车
@@ -130,7 +131,7 @@
         successClass: 'btn btn-success btn-block',
         failClass: 'btn btn-fail btn-block',
         isActive: false,
-        menuItems: {
+        tempData: {
           1: {
             'name': '芝士pizza',
             'description': '之时杀手，浓浓的芝士丝，食欲瞬间爆棚',
@@ -164,8 +165,22 @@
               'price': 49
             }]
           }
-        }
+        },
+        pizzas: {}
       }
+    },
+    created () {
+      this.axios.get('/pizza.json')
+        .then((res) => {
+          console.log(res.data)
+          if (res.data === null) {
+            this.pizzas = this.tempData
+          } else {
+            this.pizzas = res.data
+          }
+        }).catch((err) => {
+        console.log(err)
+      })
     }
   }
 </script>

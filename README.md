@@ -54,7 +54,7 @@ router.beforeEach((to, from, next) => {
     }
 ```
 
-### 4、路由独享  
+### 5、路由独享  
 主要用于在查看某个界面时，给出登录限制
 ```vuejs
      {
@@ -65,6 +65,15 @@ router.beforeEach((to, from, next) => {
         alert('请先登录，才可看菜单')
         next('/login')
       }
+```
+### 6、配置axios原型（可供全局使用）  
+```vuejs
+// 配置axios原型
+Vue.prototype.axios = axios
+```
+use
+```vuejs
+this.axios.get(...)
 ```
 ## Build Setup
 
