@@ -18,8 +18,8 @@
         </tr>
         <tr v-for="(option, index) of pizza.options" :key="index">
           <td>{{pizza.description}}</td>
-          <td>{{option.size}}rem</td>
-          <td>{{option.price}}rmb</td>
+          <td>{{option.size}} R</td>
+          <td>{{option.price}} ￥</td>
           <td>
             <button class="btn btn-sm btn-outline-success"
                     @click="addShoppingCart(pizza , option)">+
@@ -122,6 +122,9 @@
           total += item.quantity * item.price
         }
         return total
+      },
+      pizzas () {
+        return this.$store.state.menuItems
       }
     },
     data () {
@@ -165,18 +168,21 @@
               'price': 49
             }]
           }
-        },
-        pizzas: {}
+        }
+        // pizzas: {}
       }
     },
     created () {
       this.axios.get('/pizza.json')
         .then((res) => {
+          console.log('menu')
           console.log(res.data)
           if (res.data === null) {
             this.pizzas = this.tempData
           } else {
-            this.pizzas = res.data
+            // this.pizzas = res.data
+            // 将请求的数据存储到Vuex中
+            this.$store.commit('setMenuItems', res.data)
           }
         }).catch((err) => {
         console.log(err)

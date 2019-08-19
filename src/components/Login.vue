@@ -13,7 +13,7 @@
               <label for="password">密码</label>
               <input type="password" class="form-control col-md-4 mx-auto" v-model="password">
             </div>
-            <button type="submit" class="btn btn-block btn-success mt-5 col-md-3 mx-auto">注册</button>
+            <button type="submit" class="btn btn-block btn-success mt-5 col-md-3 mx-auto">登录</button>
           </form>
 
         </div>
@@ -23,7 +23,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
   export default {
     name: 'Login',
     data () {
@@ -34,7 +33,7 @@
     },
     methods: {
       onSubmit () {
-       axios.get('/users.json')
+       this.axios.get('/users.json')
          .then((res) => {
            const data = res.data
            const datas = []
@@ -51,9 +50,11 @@
 
            // 登录成功
            if (result !== null && result.length > 0) {
+             this.$store.dispatch('updateStatus', result[0])
              this.$router.push('/home')
            } else {
              // 登录失败
+             this.$store.dispatch('updateStatus', null)
              alert('您的账号或者密码错误！')
            }
            console.log(result)
@@ -61,6 +62,10 @@
          console.log(err)
        })
       }
+    },
+    // 导航守卫 退出之后清空所有的信息
+    beforeRouteEnter: (to, from, next) => {
+      next(vm => vm.$store.dispatch('updateStatus', null))
     }
   }
 </script>

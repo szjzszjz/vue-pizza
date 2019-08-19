@@ -48,7 +48,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
 
   export default {
     name: 'NewPizza',
@@ -71,10 +70,11 @@
           }]
         }
 
-        axios.post('/pizza.json', this.newPizza)
+        this.axios.post('/pizza.json', this.newPizza)
           .then((res) => {
             console.log(res)
-            this.$router.push('/menu')
+            // this.$router.push('/menu')
+            this.$store.commit('pushPizzas', this.newPizza)
           }).catch((err) => {
           console.log(err)
         })

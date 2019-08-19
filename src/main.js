@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+import {store} from './store/index'
+// import { mapState } from 'vuex'
 
 Vue.config.productionTip = false
 axios.defaults.baseURL = 'https://vue-pizza-bbaad.firebaseio.com/'
@@ -15,8 +17,17 @@ Vue.prototype.axios = axios
 new Vue({
   el: '#app',
   router,
-  components: { App },
-  template: '<App/>'
+  store,
+  components: {App},
+  template: '<App/>',
+  computed: {
+    // ...mapState(['isLogin']) // ...展开运算符 映射state里面的属性 直接获取值
+    isLogin () {
+      console.log('ee')
+      console.log(this.$store.state.isLogin)
+      return this.$store.state.isLogin
+    }
+  }
 })
 
 // 全局守卫
@@ -24,8 +35,12 @@ new Vue({
 //   if (to.path === '/login' || to.path === '/register') {
 //     next()
 //   } else {
-//     alert('请先登录')
-//     next('/login')
+//     console.log(this.$store.state.isLogin)
+//     if (this.isLogin) {
+//       next()
+//     } else {
+//       next('/login')
+//     }
 //   }
 // })
 

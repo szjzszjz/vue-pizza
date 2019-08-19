@@ -1,6 +1,6 @@
 <template>
-  <div class="row mb-5 mx-auto col-10" style="background-color: skyblue;">
-    <dvi class="col-4" style="background-color: greenyellow;">
+  <div class="row mt-3 mx-auto col-10" >
+    <dvi class="col-4" >
       <!--      导航-->
       <div class="list-group mb-5">
         <router-link tag="li" class="nav-link" :to="{name:'History'}">
@@ -17,7 +17,7 @@
         </router-link>
       </div>
     </dvi>
-    <div class="col-6">
+    <div class="col-8">
       <router-view></router-view>
     </div>
   </div>

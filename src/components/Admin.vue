@@ -36,35 +36,47 @@
     },
     data () {
       return {
-        pizzas: []
+        // pizzas: []
       }
     },
     methods: {
       deletePizza (pizza) {
         console.log('delete')
-        this.pizzas.splice(this.pizzas.indexOf(pizza), 1)
         console.log(this.pizzas)
         axios.delete('/pizza/' + pizza.id + '/.json')
           .then((res) => {
             console.log('delete' + res)
-            this.$router.push('/menu')
+            // this.$router.push('/menu')
+            // this.pizzas.splice(this.pizzas.indexOf(pizza), 1)
+            // 在vuex中集中管理pizzas
+            this.$store.commit('removePizza', pizza)
           })
       }
     },
     created () {
       axios.get('/pizza.json')
         .then((res) => {
-          console.log(res.data)
+          let pizzas = []
           const data = res.data
           for (let key in data) {
             let pizza = data[key]
             pizza.id = key
-            this.pizzas.push(pizza)
-            console.log(this.pizzas)
+            pizzas.push(pizza)
           }
+
+          // 跟新vuex中的数据 实现数据同步
+          this.$store.commit('setMenuItems', pizzas)
+          this.$store.commit('setPizzas', pizzas)
         }).catch((err) => {
         console.log(err)
       })
+    },
+    computed: {
+      pizzas () {
+        console.log('admin')
+        console.log(this.$store.state.menuItems)
+        return this.$store.state.menuItems
+      }
     }
 
     // 组件内路由
