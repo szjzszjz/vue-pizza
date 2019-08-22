@@ -75,6 +75,37 @@ use
 ```vuejs
 this.axios.get(...)
 ```
+
+### 7、store中的热更新功能  
+当使用mutations 修改数据的时候不刷新界面 增加开发效率
+```vuejs
+export default () => {
+  const store = new Vuex.Store({
+  if (module.hot) {
+    module.hot.accept([
+      './state/state',
+      './getters/getters',
+      './mutations/mutations',
+      './actions/actions'
+    ], () => {
+      const newState = require('./state/state').default
+      const newGetters = require('./getters/getters').default
+      const newMutations = require('./mutations/mutations').default
+      const newActions = require('./actions/actions').default
+
+      store.hotUpdate({
+        state: newState,
+        mutations: newMutations,
+        getters: newGetters,
+        actions: newActions
+      })
+    })
+  }
+  return store
+ }
+}
+
+```
 ## Build Setup
 
 ``` bash

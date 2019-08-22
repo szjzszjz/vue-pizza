@@ -4,13 +4,15 @@ import actions from './actions'
 import mutations from './mutations'
 import getters from './getter'
 import state from './state'
+
 Vue.use(Vuex)
 
-export const store = new Vuex.Store({
-  state,
-  getters,
-  mutations,
-  actions
+export default () => {
+  const store = new Vuex.Store({
+    state,
+    getters,
+    mutations,
+    actions,
 
 //   state: {
 //     // 设置属性
@@ -71,4 +73,40 @@ export const store = new Vuex.Store({
 //     }
 //   }
 
-})
+  })
+
+  if (module.hot) {
+    module.hot.accept([
+      './state/state',
+      './getters/getters',
+      './mutations/mutations',
+      './actions/actions'
+    ], () => {
+      const newState = require('./state/state').default
+      const newGetters = require('./getters/getters').default
+      const newMutations = require('./mutations/mutations').default
+      const newActions = require('./actions/actions').default
+
+      store.hotUpdate({
+        state: newState,
+        mutations: newMutations,
+        getters: newGetters,
+        actions: newActions
+      })
+    })
+  }
+
+  // 订阅mutation方法对所有的mutation进行监听 主要用于打印日志
+  store.subscribe((mutation, state1) => {
+    console.log(mutation.type) //方法名称
+    console.log(state1) // 参数
+  })
+
+  // 订阅action方法对所有的action进行监听 主要用于打印日志
+  store.subscribeAction((action, state1) => {
+    console.log(action.type) //方法名称
+    console.log(state1) // 参数
+  })
+
+  return store
+}
